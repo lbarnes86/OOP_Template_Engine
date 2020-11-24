@@ -1,8 +1,8 @@
 # Homework 10: Template Engine - Employee Summary
 
-- Project Repository: https://github.com/lbarnes86/codeQuiz
+- Project Repository: https://github.com/lbarnes86/team-profile-generator
 
-- Project Deployment:  https://lbarnes86.github.io/codeQuiz/
+- Project Deployment:  https://lbarnes86.github.io/team-profile-generator/.
 
 
 
