@@ -43,7 +43,7 @@ function teamMenu() {
             if (pass) {
               return true;
             }
-            return "Please enter a positive number greater than zero.";
+            return "Please enter an id.";
           },
         },
         {
@@ -110,7 +110,7 @@ function teamMenu() {
     })
     //addENG
     function createEngineer() {
-      console.log("Please input Engineer employee's info");
+      console.log("Please input employee's info");
       inquirer
         .prompt([
           {
@@ -121,7 +121,7 @@ function teamMenu() {
               if (answer !== "") {
                 return true;
               }
-              return "Please enter information";
+              return "Please enter employees name";
             },
           },
           {
@@ -133,12 +133,12 @@ function teamMenu() {
               if (pass) {
                 return true;
               }
-              return "Please enter a positive number greater than zero.";
+              return "Please enter id.";
             },
           },
           {
             type: "input",
-            name: "managerEmail",
+            name: "engineerEmail",
             message: "Enter employee's email address",
             validate: (answer) => {
               const pass = answer.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
@@ -150,26 +150,25 @@ function teamMenu() {
           },
           {
             type: "input",
-            name: "managerOfficeNumber",
-            message: "Please enter the Engineer's GitHub Username.?",
+            name: "engineerGithub",
+            message: "Please enter the Engineer's GitHub Username.",
             validate: (answer) => {
-              const pass = answer.match(/^[1-9]\d*$/);
-              if (pass) {
+              if (answer !== "") {
                 return true;
               }
-              return "Please enter a valid phone number.";
+              return "Please enter GitHub username";
             },
           },
         ])
         .then(answers => {
-          const manager = new Manager(
-            answers.managerName,
-            answers.managerId,
-            answers.managerEmail,
-            answers.managerOfficeNumber
+          const engineer = new Engineer(
+            answers.engineerName,
+            answers.engineerId,
+            answers.engineerEmail,
+            answers.engineerGithub,
           );
-          employees.push(manager);
-          idArray.push(answers.managerId);
+          employees.push(engineer);
+          idArray.push(answers.engineerId);
           createTeam();
         })
     }
