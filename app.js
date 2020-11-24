@@ -10,6 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 const { createStream } = require("sax");
+const MakeTime = require("es-abstract/5/MakeTime");
+const { __makeTemplateObject } = require("tslib");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -37,7 +39,7 @@ function teamMenu() {
           name: "managerId",
           message: "What is your manager's id?",
           validate: (answer) => {
-            const pass = answer.match(/^[1-9]\d*$/);
+            const pass = answer.match(/^[0-9]\d*$/);
             if (pass) {
               return true;
             }
@@ -69,7 +71,7 @@ function teamMenu() {
           },
         },
       ])
-      .then((answers) => {
+      .then(answers => {
         const manager = new Manager(
           answers.managerName,
           answers.managerId,
@@ -79,13 +81,13 @@ function teamMenu() {
         employees.push(manager);
         idArray.push(answers.managerId);
         createTeam();
-      });
+      })
   }
   function createTeam() {
     inquirer.prompt([
       {
         type: "list",
-        name: "memberchoice",
+        name: "memberChoice",
         message: "What is the role of your team member?",
         choice: [
           "Engineer",
@@ -93,7 +95,109 @@ function teamMenu() {
           "I do not want to add another team member.",
         ],
       },
-    ]);
+    ]).then(choice => {
+      switch(choice.memberChoice){
+        case "Engineer": 
+        addEngineer();
+        break;
+        case "Intern": 
+        addIntern();
+        break;
+        default: 
+        buildTeam();
+
+      }
+    })
+    //addENG
+    function createEngineer() {
+      console.log("Please input Engineer employee's info");
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "engineerName",
+            message: "Enter Employee's name.",
+            validate: (answer) => {
+              if (answer !== "") {
+                return true;
+              }
+              return "Please enter information";
+            },
+          },
+          {
+            type: "input",
+            name: "engineerId",
+            message: "Enter employee id.",
+            validate: (answer) => {
+              const pass = answer.match(/^[0-9]\d*$/);
+              if (pass) {
+                return true;
+              }
+              return "Please enter a positive number greater than zero.";
+            },
+          },
+          {
+            type: "input",
+            name: "managerEmail",
+            message: "Enter employee's email address",
+            validate: (answer) => {
+              const pass = answer.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+              if (pass) {
+                return true;
+              }
+              return "Please enter a valid email address.";
+            },
+          },
+          {
+            type: "input",
+            name: "managerOfficeNumber",
+            message: "Please enter the Engineer's GitHub Username.?",
+            validate: (answer) => {
+              const pass = answer.match(/^[1-9]\d*$/);
+              if (pass) {
+                return true;
+              }
+              return "Please enter a valid phone number.";
+            },
+          },
+        ])
+        .then(answers => {
+          const manager = new Manager(
+            answers.managerName,
+            answers.managerId,
+            answers.managerEmail,
+            answers.managerOfficeNumber
+          );
+          employees.push(manager);
+          idArray.push(answers.managerId);
+          createTeam();
+        })
+    }
+    function createTeam() {
+      inquirer.prompt([
+        {
+          type: "list",
+          name: "memberChoice",
+          message: "What is the role of your team member?",
+          choice: [
+            "Engineer",
+            "Intern",
+            "I do not want to add another team member.",
+          ],
+        },
+      ]).then(choice => {
+        switch(choice.memberChoice){
+          case "Engineer": 
+          addEngineer();
+          break;
+          case "Intern": 
+          addIntern();
+          break;
+          default: 
+          buildTeam();
+  
+        }
+      })
   }
   createManager();
 }
