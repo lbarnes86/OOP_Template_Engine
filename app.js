@@ -46,7 +46,7 @@ function manager() {
   inquirer.prompt(questionsEmployee).then(function(data){
       const manager = new Manager(data.nameManager, data.managerId, data.emailManager, data.officeNumber);
       teamMembers.push(manager);
-      emptyId.push(data.managerId);
+      idArray.push(data.managerId);
       team();
   });
 };
@@ -97,7 +97,7 @@ function engineer() {
   ]). then(function(data){
       const engineer = new Engineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerGithub);
       teamMembers.push(engineer);
-      emptyId.push(data.engineerId);
+      idArray.push(data.engineerId);
       team();
   });
 };
@@ -127,7 +127,7 @@ function intern() {
   ]). then(function(data){
       const intern = new Intern(data.internName, data.internId, data.internEmail, data.internSchool);
       teamMembers.push(intern);
-      emptyId.push(data.internId);
+      idArray.push(data.internId);
       team();
   });
 };
@@ -139,4 +139,4 @@ function outputTeam() {
   fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
 }
 
-//manager();
+manager();
