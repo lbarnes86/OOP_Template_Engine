@@ -1,6 +1,6 @@
 # Homework 10: Template Engine - Employee Summary
 
-- Project Repository: https://github.com/lbarnes86/team-profile-generator
+- Project Repository: https://github.com/lbarnes86/OOP_Template_Engine
 
 - Walk-through Video: https://youtu.be/KG2eLK1ev84
 
