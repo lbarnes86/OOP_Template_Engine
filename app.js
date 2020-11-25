@@ -102,209 +102,41 @@ function engineer() {
   });
 };
 
-
-
-
-function teamMenu() {
-  function createManager() {
-    console.log("Let's build your team.");
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "managerName",
-          message: "What is your manager's name?",
-          validate: (answer) => {
-            if (answer !== "") {
-              return true;
-            }
-            return "Please enter information";
-          },
-        },
-        {
-          type: "input",
-          name: "managerId",
-          message: "What is your manager's id?",
-          validate: (answer) => {
-            const pass = answer.match(/^[0-9]\d*$/);
-            if (pass) {
-              return true;
-            }
-            return "Please enter an id.";
-          },
-        },
-        {
-          type: "input",
-          name: "managerEmail",
-          message: "What is your manager's email?",
-          validate: (answer) => {
-            const pass = answer.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
-            if (pass) {
-              return true;
-            }
-            return "Please enter a valid email address.";
-          },
-        },
-        {
-          type: "input",
-          name: "managerOfficeNumber",
-          message: "What is your manager's office number?",
-          validate: (answer) => {
-            const pass = answer.match(/^[1-9]\d*$/);
-            if (pass) {
-              return true;
-            }
-            return "Please enter a valid phone number.";
-          },
-        },
-      ])
-      .then(answers => {
-        const manager = new Manager(
-          answers.managerName,
-          answers.managerId,
-          answers.managerEmail,
-          answers.managerOfficeNumber
-        );
-        employees.push(manager);
-        idArray.push(answers.managerId);
-        createTeam();
-      })
-  }
-  function createTeam() {
-    inquirer.prompt([
+function intern() {
+  inquirer.prompt([
       {
-        type: "list",
-        name: "memberChoice",
-        message: "What is the role of your team member?",
-        choice: [
-          "Engineer",
-          "Intern",
-          "I do not want to add another team member.",
-        ],
+          type: "input",
+          name: "internName",
+          message: "What is the intern's name?"
       },
-    ]).then(choice => {
-      switch(choice.memberChoice){
-        case "Engineer": 
-        addEngineer();
-        break;
-        case "Intern": 
-        addIntern();
-        break;
-        default: 
-        buildTeam();
-
+      {
+          type: "input",
+          name: "internId",
+          message: "What is the intern's ID?"
+      },
+      {
+          type: "input",
+          name: "internEmail",
+          message: "What is the intern's email?"
+      },
+      {
+          type: "input",
+          name: "internSchool",
+          message: "What is the intern's school?"
       }
-    })
-    //addENG
-    function createEngineer() {
-      console.log("Please input employee's info");
-      inquirer
-        .prompt([
-          {
-            type: "input",
-            name: "engineerName",
-            message: "Enter Employee's name.",
-            validate: (answer) => {
-              if (answer !== "") {
-                return true;
-              }
-              return "Please enter employees name";
-            },
-          },
-          {
-            type: "input",
-            name: "engineerId",
-            message: "Enter employee id.",
-            validate: (answer) => {
-              const pass = answer.match(/^[0-9]\d*$/);
-              if (pass) {
-                return true;
-              }
-              return "Please enter id.";
-            },
-          },
-          {
-            type: "input",
-            name: "engineerEmail",
-            message: "Enter employee's email address",
-            validate: (answer) => {
-              const pass = answer.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
-              if (pass) {
-                return true;
-              }
-              return "Please enter a valid email address.";
-            },
-          },
-          {
-            type: "input",
-            name: "engineerGithub",
-            message: "Please enter the Engineer's GitHub Username.",
-            validate: (answer) => {
-              if (answer !== "") {
-                return true;
-              }
-              return "Please enter GitHub username";
-            },
-          },
-        ])
-        .then(answers => {
-          const engineer = new Engineer(
-            answers.engineerName,
-            answers.engineerId,
-            answers.engineerEmail,
-            answers.engineerGithub,
-          );
-          employees.push(engineer);
-          idArray.push(answers.engineerId);
-          createTeam();
-        })
-    }
-    function createTeam() {
-      inquirer.prompt([
-        {
-          type: "list",
-          name: "memberChoice",
-          message: "What is the role of your team member?",
-          choice: [
-            "Engineer",
-            "Intern",
-            "I do not want to add another team member.",
-          ],
-        },
-      ]).then(choice => {
-        switch(choice.memberChoice){
-          case "Engineer": 
-          addEngineer();
-          break;
-          case "Intern": 
-          addIntern();
-          break;
-          default: 
-          buildTeam();
-  
-        }
-      })
+  ]). then(function(data){
+      const intern = new Intern(data.internName, data.internId, data.internEmail, data.internSchool);
+      teamMembers.push(intern);
+      emptyId.push(data.internId);
+      team();
+  });
+};
+
+function outputTeam() {
+  if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR)
   }
-  createManager();
+  fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
 }
-teamMenu();
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+manager();
