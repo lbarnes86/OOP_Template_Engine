@@ -139,4 +139,4 @@ function outputTeam() {
   fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
 }
 
-manager();
+//manager();
