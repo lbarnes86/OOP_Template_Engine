@@ -2,88 +2,38 @@
 
 - Project Repository: https://github.com/lbarnes86/team-profile-generator
 
-- Project Deployment:  https://lbarnes86.github.io/team-profile-generator/.
-
-
+- Walk-through Video: https://youtu.be/KG2eLK1ev84
 
 ## Instructions
 ```
-As a manager
-I want to generate a webpage that displays my team's basic info
-so that I have quick access to emails and GitHub profiles
+1. Install inquirer and run the command line
+2. Follow the promts to enter the information about an employee
+3. Data will then print to the Output folder in team.html 
 ```
 
 
+### Author and Acknowledgement
 
-### Hints
+```
+Author: Lloyd Barnes
 
-
+```
 
 ## Screenshots
-```
 
-```
+<img src="https://user-images.githubusercontent.com/70309736/100182764-01392000-2ea3-11eb-8958-228897edcdb9.png">
+
+<img src="https://user-images.githubusercontent.com/70309736/100182772-04cca700-2ea3-11eb-8a52-59e6eb3ca17f.png">
+
+<img src="https://user-images.githubusercontent.com/70309736/100182781-072f0100-2ea3-11eb-9342-cf9a08fe2cdc.png">
+
+<img src="https://user-images.githubusercontent.com/70309736/100182785-08f8c480-2ea3-11eb-866f-061519a66ea0.png">
 
 
-### Classes
-The project must have the these classes: `Employee`, `Manager`, `Engineer`,
-`Intern`. The tests for these classes in the `tests` directory must all pass.
 
-The first class is an `Employee` parent class with the following properties and
-methods:
 
-  * name
-  * id
-  * email
-  * getName()
-  * getId()
-  * getEmail()
-  * getRole() // Returns 'Employee'
 
-The other three classes will extend `Employee`. 
 
-In addition to `Employee`'s properties and methods, `Manager` will also have:
 
-  * officeNumber
 
-  * getRole() // Overridden to return 'Manager'
-
-In addition to `Employee`'s properties and methods, `Engineer` will also have:
-
-  * github  // GitHub username
-
-  * getGithub()
-
-  * getRole() // Overridden to return 'Engineer'
-
-In addition to `Employee`'s properties and methods, `Intern` will also have:
-
-  * school 
-
-  * getSchool()
-
-  * getRole() // Overridden to return 'Intern'
-
-### User input
-
-The project must prompt the user to build an engineering team. An engineering
-team consists of a manager, and any number of engineers and interns.
-
-### Roster output
-
-The project must generate a `team.html` page in the `output` directory, that displays a nicely formatted team roster. Each team member should display the following in no particular order:
-
-  * Name
-
-  * Role
-
-  * ID
-
-  * Role-specific property (School, link to GitHub profile, or office number)
-
-## Bonus
-
-* Use validation to ensure that the information provided is in the proper expected format.
-
-* Add the application to your portfolio.
 
