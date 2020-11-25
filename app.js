@@ -41,6 +41,18 @@ const questionsEmployee = [
   }
 ];
 
+function manager() {
+  console.log("Let's build your team");
+  inquirer.prompt(questionsEmployee).then(function(data){
+      const manager = new Manager(data.nameManager, data.managerId, data.emailManager, data.officeNumber);
+      teamMembers.push(manager);
+      emptyId.push(data.managerId);
+      team();
+  });
+};
+
+
+
 function teamMenu() {
   function createManager() {
     console.log("Let's build your team.");
